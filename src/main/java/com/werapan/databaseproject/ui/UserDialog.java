@@ -22,6 +22,7 @@ public class UserDialog extends javax.swing.JDialog {
         super(parent, true);
         initComponents();
         this.editedUser = editedUser;
+        setObjectToForm();
         userService = new UserService();
     }
 

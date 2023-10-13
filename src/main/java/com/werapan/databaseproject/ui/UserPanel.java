@@ -320,6 +320,11 @@ public class UserPanel extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         editedUser = new User();
+        openDialog();
+        
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         UserDialog userDialog = new UserDialog(frame, editedUser);
         userDialog.setVisible(true);
@@ -330,8 +335,7 @@ public class UserPanel extends javax.swing.JPanel {
             }
             
         });
-        
-    }//GEN-LAST:event_btnAddActionPerformed
+    }
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         if(editedUser.getId()<0){//Add New
@@ -352,8 +356,7 @@ public class UserPanel extends javax.swing.JPanel {
         int selectedIndex = tblUser.getSelectedRow();
         if(selectedIndex>=0){
             editedUser = list.get(selectedIndex);
-            setObjectToForm();
-            enableForm(true);
+            openDialog();
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
