@@ -13,6 +13,7 @@ import java.util.List;
  * @author werapan
  */
 public class UserService {
+    public static User currentUser;
     public User login(String login, String password) {
         UserDao userDao = new UserDao();
         User user = userDao.getByLogin(login);
@@ -20,6 +21,10 @@ public class UserService {
             return user;
         }
         return null;
+    }
+
+    public static User getCurrentUser() {
+        return new User(6, "werapan", "Worawit", "Password", 0, "M");
     }
     
     public List<User> getUsers(){
