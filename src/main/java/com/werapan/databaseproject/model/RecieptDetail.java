@@ -90,6 +90,7 @@ public class RecieptDetail {
 
     public void setQty(int qty) {
         this.qty = qty;
+        totalPrice = qty*productPrice;
     }
 
     public float getTotalPrice() {

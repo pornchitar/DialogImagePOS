@@ -39,6 +39,7 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable {
         initComponents();
         initProductTable();
         reciept = new Reciept();
+        lblUserName.setText(UserService.getCurrentUser().getName());
         reciept.setUser(UserService.getCurrentUser());
         tblRecieptDetail.setModel(new AbstractTableModel() {
             String[] headers = {"Name", "Price", "Qty", "Total"};
@@ -63,8 +64,7 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable {
                 ArrayList<RecieptDetail> recieptDetails = reciept.getRecieptDetails();
                 RecieptDetail recieptDetail = recieptDetails.get(rowIndex);
                 switch (columnIndex) {
-                    case 0:
-                        return recieptDetail.getProductName();
+                    case 0:return recieptDetail.getProductName();
                     case 1:
                         return recieptDetail.getProductPrice();
                     case 2:
@@ -73,6 +73,30 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable {
                         return recieptDetail.getTotalPrice();
                     default:
                         return "";
+                }
+            }
+
+            @Override
+            public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+                
+                ArrayList<RecieptDetail> recieptDetails = reciept.getRecieptDetails();
+                RecieptDetail recieptDetail = recieptDetails.get(rowIndex);
+                if(columnIndex == 2){
+                    int qty = Integer.parseInt((String) aValue);
+                    if(qty<1) return;
+                    recieptDetail.setQty(qty);
+                    reciept.calculateTotal();
+                    refreshReciept();
+                }
+            }
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                switch (columnIndex) {
+                    case 2:
+                        return true;
+                    default:
+                        return false;
                 }
             }
 
@@ -136,6 +160,7 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable {
                         return "";
                 }
             }
+            
         });
         tblProduct.addMouseListener(new MouseAdapter() {
             @Override
@@ -264,8 +289,8 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btnCalculate, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
