@@ -8,6 +8,7 @@ import com.werapan.databaseproject.model.Product;
 import com.werapan.databaseproject.model.Reciept;
 import com.werapan.databaseproject.model.RecieptDetail;
 import com.werapan.databaseproject.service.ProductService;
+import com.werapan.databaseproject.service.RecieptService;
 import com.werapan.databaseproject.service.UserService;
 import java.awt.Font;
 import java.awt.Image;
@@ -24,8 +25,8 @@ import javax.swing.table.AbstractTableModel;
 public class PosPanel extends javax.swing.JPanel {
     ArrayList<Product> products;
     ProductService productService = new ProductService();
+    RecieptService recieptService = new RecieptService();
     Reciept reciept;
-    
     /**
      * Creates new form PosPanel
      */
@@ -247,6 +248,7 @@ public class PosPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         System.out.println(""+ reciept);
+        recieptService.addNew(reciept);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
