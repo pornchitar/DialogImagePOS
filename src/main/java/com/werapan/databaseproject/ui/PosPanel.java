@@ -129,6 +129,11 @@ public class PosPanel extends javax.swing.JPanel {
                 int row = tblProduct.rowAtPoint(e.getPoint());
                 int col = tblProduct.columnAtPoint(e.getPoint());
                 System.out.println(products.get(row));
+                Product product = products.get(row);
+                RecieptDetail rd = new RecieptDetail(product.getId(),product.getName(),product.getPrice(), 1, product.getPrice(), -1);
+                reciept.addRecieptDetail(rd);
+                tblRecieptDetail.revalidate();
+                tblRecieptDetail.repaint();
             }
             
         });
