@@ -4,6 +4,7 @@
  */
 package com.werapan.databaseproject.ui;
 
+import com.werapan.databaseproject.component.BuyProductable;
 import com.werapan.databaseproject.component.ProductListPanel;
 import com.werapan.databaseproject.model.Product;
 import com.werapan.databaseproject.model.Reciept;
@@ -23,12 +24,14 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author ASUS
  */
-public class PosPanel extends javax.swing.JPanel {
+public class PosPanel extends javax.swing.JPanel implements BuyProductable {
+
     ArrayList<Product> products;
     ProductService productService = new ProductService();
     RecieptService recieptService = new RecieptService();
     Reciept reciept;
     private final ProductListPanel productListPanel;
+
     /**
      * Creates new form PosPanel
      */
@@ -37,13 +40,14 @@ public class PosPanel extends javax.swing.JPanel {
         initProductTable();
         reciept = new Reciept();
         reciept.setUser(UserService.getCurrentUser());
-        tblRecieptDetail.setModel(new AbstractTableModel(){
+        tblRecieptDetail.setModel(new AbstractTableModel() {
             String[] headers = {"Name", "Price", "Qty", "Total"};
+
             @Override
             public String getColumnName(int column) {
                 return headers[column];
             }
-            
+
             @Override
             public int getRowCount() {
                 return reciept.getRecieptDetails().size();
@@ -71,9 +75,10 @@ public class PosPanel extends javax.swing.JPanel {
                         return "";
                 }
             }
-        
+
         });
         productListPanel = new ProductListPanel();
+        productListPanel.addOnBuyProduct(this);
         scrProductList.setViewportView(productListPanel);
     }
 
@@ -83,6 +88,7 @@ public class PosPanel extends javax.swing.JPanel {
         tblProduct.setRowHeight(100);
         tblProduct.setModel(new AbstractTableModel() {
             String[] headers = {"Image", "ID", "Name", "Price"};
+
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 switch (columnIndex) {
@@ -97,7 +103,7 @@ public class PosPanel extends javax.swing.JPanel {
             public String getColumnName(int column) {
                 return headers[column];
             }
-            
+
             @Override
             public int getRowCount() {
                 return products.size();
@@ -113,11 +119,11 @@ public class PosPanel extends javax.swing.JPanel {
                 Product product = products.get(rowIndex);
                 switch (columnIndex) {
                     case 0:
-                        ImageIcon icon = new ImageIcon("./product"+product.getId()+".png");
+                        ImageIcon icon = new ImageIcon("./product" + product.getId() + ".png");
                         Image image = icon.getImage();
                         int width = image.getWidth(null);
                         int height = image.getHeight(null);
-                        Image newImage = image.getScaledInstance((int)((100.0*width)/height), 100, Image.SCALE_SMOOTH);
+                        Image newImage = image.getScaledInstance((int) ((100.0 * width) / height), 100, Image.SCALE_SMOOTH);
                         icon.setImage(newImage);
                         return icon;
                     case 1:
@@ -138,13 +144,13 @@ public class PosPanel extends javax.swing.JPanel {
                 int col = tblProduct.columnAtPoint(e.getPoint());
                 System.out.println(products.get(row));
                 Product product = products.get(row);
-                
+
                 reciept.addRecieptDetail(product, 1);
                 refreshReciept();
             }
-            
+
         });
-        
+
     }
 
     private void refreshReciept() {
@@ -298,7 +304,7 @@ public class PosPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
-        System.out.println(""+ reciept);
+        System.out.println("" + reciept);
         recieptService.addNew(reciept);
         clearReciept();
     }//GEN-LAST:event_btnCalculateActionPerformed
@@ -323,4 +329,10 @@ public class PosPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblProduct;
     private javax.swing.JTable tblRecieptDetail;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void buy(Product product, int qty) {
+        reciept.addRecieptDetail(product, qty);
+        refreshReciept();
+    }
 }

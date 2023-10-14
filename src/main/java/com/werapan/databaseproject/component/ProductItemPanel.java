@@ -6,6 +6,9 @@ package com.werapan.databaseproject.component;
 
 import com.werapan.databaseproject.model.Product;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,7 +18,7 @@ import javax.swing.ImageIcon;
 public class ProductItemPanel extends javax.swing.JPanel {
 
     private final Product product;
-
+    private ArrayList<BuyProductable> subscribers = new ArrayList<>();
     /**
      * Creates new form ProductItemPanel
      */
@@ -30,8 +33,23 @@ public class ProductItemPanel extends javax.swing.JPanel {
         Image newImage = image.getScaledInstance((int)((120.0*width)/height), 120, Image.SCALE_SMOOTH);
         icon.setImage(newImage);
         lblImage.setIcon(icon);
+        lblImage.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Clicked");
+                for(BuyProductable s: subscribers){
+                    s.buy(product, Integer.parseInt(txtQty.getText()));
+                }
+                txtQty.setText("1");
+            }
+            
+        });
+        
     }
 
+    public void addOnBuyProduct(BuyProductable subscriber){
+        subscribers.add(subscriber);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,9 +62,9 @@ public class ProductItemPanel extends javax.swing.JPanel {
         lblImage = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        btnMinus = new javax.swing.JButton();
+        btnPlus = new javax.swing.JButton();
+        txtQty = new javax.swing.JTextField();
 
         lblImage.setBackground(new java.awt.Color(204, 255, 204));
         lblImage.setOpaque(true);
@@ -55,35 +73,40 @@ public class ProductItemPanel extends javax.swing.JPanel {
         lblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblName.setText("Product Name");
 
-        jButton1.setText("-");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnMinus.setText("-");
+        btnMinus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnMinusActionPerformed(evt);
             }
         });
 
-        jButton2.setText("+");
+        btnPlus.setText("+");
+        btnPlus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlusActionPerformed(evt);
+            }
+        });
 
-        jTextField1.setText("1");
+        txtQty.setText("1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnMinus, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtQty, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnPlus, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtQty, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnMinus, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(btnPlus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -111,17 +134,24 @@ public class ProductItemPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusActionPerformed
+        int newQty = Integer.parseInt(txtQty.getText())-1;
+        if(newQty<1) return;
+        txtQty.setText(""+newQty);
+    }//GEN-LAST:event_btnMinusActionPerformed
+
+    private void btnPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusActionPerformed
+        int newQty = Integer.parseInt(txtQty.getText())+1;
+        txtQty.setText(""+newQty);
+    }//GEN-LAST:event_btnPlusActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnMinus;
+    private javax.swing.JButton btnPlus;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblName;
+    private javax.swing.JTextField txtQty;
     // End of variables declaration//GEN-END:variables
 }
