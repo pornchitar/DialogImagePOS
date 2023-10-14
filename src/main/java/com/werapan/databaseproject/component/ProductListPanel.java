@@ -17,11 +17,11 @@ public class ProductListPanel extends javax.swing.JPanel {
      */
     public ProductListPanel() {
         initComponents();
-        int productSize = 20;
-        for(int i=0; i<20; i++){
+        int productSize = 10;
+        for(int i=0; i<productSize; i++){
             pnlProductList.add(new ProductItemPanel());
         }
-        pnlProductList.setLayout(new GridLayout(3, 7, 0, 0));
+        pnlProductList.setLayout(new GridLayout((productSize/3)+((productSize%3!=0)?1:0), 3, 0, 0));
     }
 
     /**
@@ -33,43 +33,39 @@ public class ProductListPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
         pnlProductList = new javax.swing.JPanel();
 
         javax.swing.GroupLayout pnlProductListLayout = new javax.swing.GroupLayout(pnlProductList);
         pnlProductList.setLayout(pnlProductListLayout);
         pnlProductListLayout.setHorizontalGroup(
             pnlProductListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 388, Short.MAX_VALUE)
+            .addGap(0, 464, Short.MAX_VALUE)
         );
         pnlProductListLayout.setVerticalGroup(
             pnlProductListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 463, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(pnlProductList);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(pnlProductList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 7, Short.MAX_VALUE)
+                .addComponent(pnlProductList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 7, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlProductList;
     // End of variables declaration//GEN-END:variables
 }
