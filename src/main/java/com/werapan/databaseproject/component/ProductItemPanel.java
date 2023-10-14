@@ -4,17 +4,32 @@
  */
 package com.werapan.databaseproject.component;
 
+import com.werapan.databaseproject.model.Product;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author ASUS
  */
 public class ProductItemPanel extends javax.swing.JPanel {
 
+    private final Product product;
+
     /**
      * Creates new form ProductItemPanel
      */
-    public ProductItemPanel() {
+    public ProductItemPanel(Product p) {
         initComponents();
+        product = p;
+        lblName.setText(product.getName());
+        ImageIcon icon = new ImageIcon("./product"+product.getId()+".png");
+        Image image = icon.getImage();
+        int width = image.getWidth(null);
+        int height = image.getHeight(null);
+        Image newImage = image.getScaledInstance((int)((120.0*width)/height), 120, Image.SCALE_SMOOTH);
+        icon.setImage(newImage);
+        lblImage.setIcon(icon);
     }
 
     /**
@@ -26,19 +41,19 @@ public class ProductItemPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblImage = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
 
-        jLabel1.setBackground(new java.awt.Color(204, 255, 204));
-        jLabel1.setOpaque(true);
+        lblImage.setBackground(new java.awt.Color(204, 255, 204));
+        lblImage.setOpaque(true);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Product Name");
+        lblName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblName.setText("Product Name");
 
         jButton1.setText("-");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -76,20 +91,20 @@ public class ProductItemPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -104,9 +119,9 @@ public class ProductItemPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblImage;
+    private javax.swing.JLabel lblName;
     // End of variables declaration//GEN-END:variables
 }
