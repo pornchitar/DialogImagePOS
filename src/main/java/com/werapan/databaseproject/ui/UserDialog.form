@@ -50,47 +50,56 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="edtLogin" alignment="0" pref="120" max="32767" attributes="0"/>
-                              <Component id="edtPassword" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="btnClear" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="btnSave" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="jLabel1" min="-2" pref="40" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel3" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
+                              <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="edtName" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="edtLogin" alignment="0" pref="120" max="32767" attributes="0"/>
+                                      <Component id="edtPassword" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="edtName" min="-2" pref="120" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                          <Component id="rbtMale" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="rbtFemale" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Component id="rbtMale" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="rbtFemale" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="cmbRole" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="cmbRole" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnClear" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="btnSave" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="lblPhoto" min="-2" pref="106" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -117,7 +126,9 @@
                       <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="cmbRole" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="191" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <Component id="lblPhoto" min="-2" pref="117" max="-2" attributes="0"/>
+                  <EmptySpace pref="48" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnSave" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnClear" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -243,6 +254,11 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClearActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblPhoto">
+          <Properties>
+            <Property name="opaque" type="boolean" value="true"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

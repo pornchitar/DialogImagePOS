@@ -185,6 +185,7 @@ public class UserPanel extends javax.swing.JPanel {
     private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         UserDialog userDialog = new UserDialog(frame, editedUser);
+        userDialog.setLocationRelativeTo(this);
         userDialog.setVisible(true);
         userDialog.addWindowListener(new WindowAdapter() {
             @Override
