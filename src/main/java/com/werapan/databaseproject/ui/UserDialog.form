@@ -259,6 +259,9 @@
           <Properties>
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblPhotoMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

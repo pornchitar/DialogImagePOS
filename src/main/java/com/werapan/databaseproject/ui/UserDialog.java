@@ -7,8 +7,16 @@ package com.werapan.databaseproject.ui;
 import com.werapan.databaseproject.model.User;
 import com.werapan.databaseproject.service.UserService;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -17,6 +25,7 @@ import javax.swing.ImageIcon;
 public class UserDialog extends javax.swing.JDialog {
     private final UserService userService;
     private User editedUser;
+    private String path;
     /**
      * Creates new form UserDialog
      */
@@ -36,6 +45,29 @@ public class UserDialog extends javax.swing.JDialog {
             Image newImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
             icon.setImage(newImage);
             lblPhoto.setIcon(icon);
+        }
+    }
+    private void loadImage(String path) {
+        if(editedUser.getId()>0){
+            ImageIcon icon = new ImageIcon(path);
+            Image image = icon.getImage();
+            Image newImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            icon.setImage(newImage);
+            lblPhoto.setIcon(icon);
+        }
+    }
+    
+    public void chooseImage(){
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files", "png", "jpg" );
+        fileChooser.setFileFilter(filter);
+        
+        int returnVal = fileChooser.showOpenDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION){
+            File file = fileChooser.getSelectedFile();
+            System.out.println("Selected file: " + file.getAbsolutePath());
+            loadImage(file.getAbsolutePath());
+            path = file.getAbsolutePath();
         }
     }
 
@@ -116,6 +148,11 @@ public class UserDialog extends javax.swing.JDialog {
         });
 
         lblPhoto.setOpaque(true);
+        lblPhoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPhotoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -210,19 +247,34 @@ public class UserDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        User user;
         if(editedUser.getId()<0){//Add New
             setFormToObject();
-            userService.addNew(editedUser);
+            user = userService.addNew(editedUser);
         }else{
             setFormToObject();
-            userService.update(editedUser);
+            user = userService.update(editedUser);
         }
+        saveImage(user);
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void saveImage(User user) {
+        try {
+            BufferedImage image = ImageIO.read(new File(path));
+            ImageIO.write(image, "png", new File("./user" + user.getId() + ".png"));
+        } catch (IOException ex) {
+            Logger.getLogger(UserDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         dispose();
     }//GEN-LAST:event_btnClearActionPerformed
+
+    private void lblPhotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhotoMouseClicked
+        chooseImage();
+    }//GEN-LAST:event_lblPhotoMouseClicked
 
     /**
      * @param args the command line arguments
