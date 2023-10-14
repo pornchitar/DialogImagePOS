@@ -249,7 +249,14 @@ public class PosPanel extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         System.out.println(""+ reciept);
         recieptService.addNew(reciept);
+        clearReciept();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void clearReciept() {
+        reciept = new Reciept();
+        reciept.setUser(UserService.getCurrentUser());
+        refreshReciept();
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
