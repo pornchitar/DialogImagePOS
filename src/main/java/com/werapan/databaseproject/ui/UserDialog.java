@@ -260,6 +260,7 @@ public class UserDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void saveImage(User user) {
+        if(path == null || path.isEmpty()) return;
         try {
             BufferedImage image = ImageIO.read(new File(path));
             ImageIO.write(image, "png", new File("./user" + user.getId() + ".png"));
