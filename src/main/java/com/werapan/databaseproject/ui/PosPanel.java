@@ -74,7 +74,7 @@ public class PosPanel extends javax.swing.JPanel {
         tblProduct.getTableHeader().setFont(new Font("TH Sarabun New", Font.PLAIN, 24));
         tblProduct.setRowHeight(100);
         tblProduct.setModel(new AbstractTableModel() {
-            String[] headers = {"Image", "ID", "ชื่อ", "Price"};
+            String[] headers = {"Image", "ID", "Name", "Price"};
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 switch (columnIndex) {
@@ -130,14 +130,19 @@ public class PosPanel extends javax.swing.JPanel {
                 int col = tblProduct.columnAtPoint(e.getPoint());
                 System.out.println(products.get(row));
                 Product product = products.get(row);
-                RecieptDetail rd = new RecieptDetail(product.getId(),product.getName(),product.getPrice(), 1, product.getPrice(), -1);
-                reciept.addRecieptDetail(rd);
-                tblRecieptDetail.revalidate();
-                tblRecieptDetail.repaint();
+                
+                reciept.addRecieptDetail(product, 1);
+                refreshReciept();
             }
             
         });
         
+    }
+
+    private void refreshReciept() {
+        tblRecieptDetail.revalidate();
+        tblRecieptDetail.repaint();
+        lblTotal.setText("Total: " + reciept.getTotal());
     }
 
     /**
@@ -154,8 +159,9 @@ public class PosPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblRecieptDetail = new javax.swing.JTable();
         lblUserName = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
 
-        tblProduct.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tblProduct.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -169,7 +175,7 @@ public class PosPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblProduct);
 
-        tblRecieptDetail.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tblRecieptDetail.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblRecieptDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -186,6 +192,10 @@ public class PosPanel extends javax.swing.JPanel {
         lblUserName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblUserName.setText("User Name");
 
+        lblTotal.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblTotal.setText("Total: 0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -193,7 +203,11 @@ public class PosPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(327, 327, 327)
+                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -208,7 +222,9 @@ public class PosPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(106, 106, 106))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblTotal)
+                        .addGap(78, 78, 78))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -217,6 +233,7 @@ public class PosPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblUserName;
     private javax.swing.JTable tblProduct;
     private javax.swing.JTable tblRecieptDetail;

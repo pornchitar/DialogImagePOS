@@ -172,6 +172,12 @@ public class Reciept {
         calculateTotal();
     }
     
+    public void addRecieptDetail(Product product, int qty){
+        RecieptDetail rd = new RecieptDetail(product.getId(),product.getName(),product.getPrice(), 1, product.getPrice(), -1);
+        recieptDetails.add(rd);
+        calculateTotal();
+    }
+    
     public void delRecieptDetail(RecieptDetail recieptDetail){
         recieptDetails.remove(recieptDetail);
         calculateTotal();
