@@ -5,9 +5,13 @@
 package com.werapan.databaseproject.ui;
 
 import com.werapan.databaseproject.model.Product;
+import com.werapan.databaseproject.model.Reciept;
+import com.werapan.databaseproject.model.RecieptDetail;
 import com.werapan.databaseproject.service.ProductService;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
@@ -19,11 +23,53 @@ import javax.swing.table.AbstractTableModel;
 public class PosPanel extends javax.swing.JPanel {
     ArrayList<Product> products;
     ProductService productService = new ProductService();
+    Reciept reciept;
     /**
      * Creates new form PosPanel
      */
     public PosPanel() {
         initComponents();
+        initProductTable();
+        reciept = new Reciept();
+        tblRecieptDetail.setModel(new AbstractTableModel(){
+            String[] headers = {"Name", "Price", "Qty", "Total"};
+            @Override
+            public String getColumnName(int column) {
+                return headers[column];
+            }
+            
+            @Override
+            public int getRowCount() {
+                return reciept.getRecieptDetails().size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 4;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                ArrayList<RecieptDetail> recieptDetails = reciept.getRecieptDetails();
+                RecieptDetail recieptDetail = recieptDetails.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return recieptDetail.getProductName();
+                    case 1:
+                        return recieptDetail.getProductPrice();
+                    case 2:
+                        return recieptDetail.getQty();
+                    case 3:
+                        return recieptDetail.getTotalPrice();
+                    default:
+                        return "";
+                }
+            }
+        
+        });
+    }
+
+    private void initProductTable() {
         products = productService.getProductsOrderByname();
         tblProduct.getTableHeader().setFont(new Font("TH Sarabun New", Font.PLAIN, 24));
         tblProduct.setRowHeight(100);
@@ -77,6 +123,16 @@ public class PosPanel extends javax.swing.JPanel {
                 }
             }
         });
+        tblProduct.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = tblProduct.rowAtPoint(e.getPoint());
+                int col = tblProduct.columnAtPoint(e.getPoint());
+                System.out.println(products.get(row));
+            }
+            
+        });
+        
     }
 
     /**
@@ -108,7 +164,7 @@ public class PosPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblProduct);
 
-        tblRecieptDetail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tblRecieptDetail.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         tblRecieptDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
