@@ -4,6 +4,8 @@
  */
 package com.werapan.databaseproject.ui;
 
+import com.werapan.databaseproject.component.ProductListPanel;
+
 /**
  *
  * @author adisa
@@ -15,7 +17,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        scrPanel.setViewportView(new PosPanel());
+        scrPanel.setViewportView(new ProductListPanel());
     }
 
     /**
